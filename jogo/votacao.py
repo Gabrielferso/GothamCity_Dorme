@@ -1,4 +1,4 @@
-import sys  # Importado para poder encerrar o jogo imediatamente com sys.exit()
+import sys  
 from interfaces.inputs import ler_escolha_valida
 
 def executar_fase_votacao(jogo):
@@ -34,16 +34,16 @@ def executar_fase_votacao(jogo):
         if suspeito in [jogo.nome_coringa_real, jogo.nome_pinguim_real]:
             print(f"🎉 Parabéns! Vocês prenderam um dos vilões infiltrados!")
             
-            # 2. CONTA QUANTOS VILÕES AINDA ESTÃO VIVOS NA MESA
+            # 2. Contar quantos vilões ainda estão vivos
             viloes_vivos = [v for v in [jogo.nome_coringa_real, jogo.nome_pinguim_real] if v in jogo.jogadores_ativos]
             
-            # 3. SE NÃO RESTAR NENHUM VILÃO, O JOGO ACABA IMEDIATAMENTE
+            
             if len(viloes_vivos) == 0:
                 print("\n" + "="*50)
                 print("🏆 FIM DE JOGO! TODOS OS VILÕES FORAM CAPTURADOS!")
                 print("👮‍♂️ A polícia de Gotham venceu e a cidade está segura!")
                 print("="*50)
-                sys.exit() # Encerra a execução do script Python
+                sys.exit()
                 
         else:
             print(f"🤦‍♂️ Que erro! {suspeito} era apenas um Policial inocente!")

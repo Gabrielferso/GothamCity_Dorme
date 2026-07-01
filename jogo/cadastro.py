@@ -16,15 +16,12 @@ def executar_cadastro(jogo):
     while True:
         nome = input(f"Nome do Participante {len(jogo.lista_nomes) + 1}: ").strip()
         
-        # Se for para terminar, verifica antes
         if nome.upper() == 'FIM':
             if len(jogo.lista_nomes) <= 3:
                 print("❌ Adicione pelo menos 4 participantes para começar!")
                 continue
             break
             
-        # VALIDAÇÃO: Permite letras e espaços, mas rejeita números e símbolos
-        # .replace(" ", "") remove temporariamente os espaços para o .isalpha() validar nomes compostos
         if nome == "" or not nome.replace(" ", "").isalpha():
             print("❌ Nome inválido! Digite apenas letras (sem números ou símbolos).")
             continue

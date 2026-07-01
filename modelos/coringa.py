@@ -8,7 +8,6 @@ class Coringa(Personagem):
     def realizar_acao_noturna(self, jogo_contexto):
         print(f"\n🃏 [GÁS DO RISO] Vez do Coringa agir...")
         
-        # Listar todas as possíveis vítimas (jogadores ativos menos o próprio Coringa)
         vitimas = [p for p in jogo_contexto.jogadores_ativos if p != self.nome]
         
         print("  [0] Pular turno / Não aplicar o gás em ninguém")

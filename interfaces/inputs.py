@@ -1,4 +1,4 @@
-def ler_escolha_valida(mensagem: str, max_opcoes: int) -> int:
+def ler_escolha_valida(mensagem: str, max_opcoes: int):
     while True:
         try:
             escolha = int(input(mensagem))
