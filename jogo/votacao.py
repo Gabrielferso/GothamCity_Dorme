@@ -1,3 +1,4 @@
+import sys  # Importado para poder encerrar o jogo imediatamente com sys.exit()
 from interfaces.inputs import ler_escolha_valida
 
 def executar_fase_votacao(jogo):
@@ -9,9 +10,6 @@ def executar_fase_votacao(jogo):
         print(f"💀 NOTÍCIA DE ÚLTIMA HORA: {', '.join(jogo.vitimas_da_noite)} foram eliminados esta noite!")
     else:
         print("🕊️ Ninguém foi eliminado esta noite.")
-        
-    if jogo.jogador_silenciado in jogo.jogadores_ativos:
-        print(f"🤫 EFEITO DO CORINGA: {jogo.jogador_silenciado} foi afetado pelo Gás do Riso e NÃO PODE falar nesta discussão!")
         
     print("="*50)
     print(f"👥 Sobreviventes na mesa: {', '.join(jogo.jogadores_ativos)}")
@@ -32,12 +30,21 @@ def executar_fase_votacao(jogo):
         jogo.jogadores_ativos.remove(suspeito)
         print(f"\n🔒 {suspeito} foi enviado para o Asilo Arkham!")
         
-        if suspeito == jogo.nome_coringa_real and jogo.qtd_viloes_configurada == 2:
-            jogo.coringa_ganhou_por_ejecao = True
-            print(f"🃏 O Coringa ({jogo.nome_coringa_real}) começa a rir descontroladamente!")
-            print("Ele queria ser pego para ativar o seu plano mestre!")
-        elif suspeito in [jogo.nome_coringa_real, jogo.nome_pinguim_real]:
+        # 1. Verifica se o suspeito era de fato um vilão
+        if suspeito in [jogo.nome_coringa_real, jogo.nome_pinguim_real]:
             print(f"🎉 Parabéns! Vocês prenderam um dos vilões infiltrados!")
+            
+            # 2. CONTA QUANTOS VILÕES AINDA ESTÃO VIVOS NA MESA
+            viloes_vivos = [v for v in [jogo.nome_coringa_real, jogo.nome_pinguim_real] if v in jogo.jogadores_ativos]
+            
+            # 3. SE NÃO RESTAR NENHUM VILÃO, O JOGO ACABA IMEDIATAMENTE
+            if len(viloes_vivos) == 0:
+                print("\n" + "="*50)
+                print("🏆 FIM DE JOGO! TODOS OS VILÕES FORAM CAPTURADOS!")
+                print("👮‍♂️ A polícia de Gotham venceu e a cidade está segura!")
+                print("="*50)
+                sys.exit() # Encerra a execução do script Python
+                
         else:
             print(f"🤦‍♂️ Que erro! {suspeito} era apenas um Policial inocente!")
             

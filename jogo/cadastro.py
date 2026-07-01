@@ -15,14 +15,24 @@ def executar_cadastro(jogo):
 
     while True:
         nome = input(f"Nome do Participante {len(jogo.lista_nomes) + 1}: ").strip()
+        
+        # Se for para terminar, verifica antes
         if nome.upper() == 'FIM':
             if len(jogo.lista_nomes) <= 3:
                 print("❌ Adicione pelo menos 4 participantes para começar!")
                 continue
             break
-        if nome == "" or nome in jogo.lista_nomes:
-            print("❌ Nome inválido ou já adicionado.")
+            
+        # VALIDAÇÃO: Permite letras e espaços, mas rejeita números e símbolos
+        # .replace(" ", "") remove temporariamente os espaços para o .isalpha() validar nomes compostos
+        if nome == "" or not nome.replace(" ", "").isalpha():
+            print("❌ Nome inválido! Digite apenas letras (sem números ou símbolos).")
             continue
+            
+        if nome in jogo.lista_nomes:
+            print("❌ Este nome já foi adicionado.")
+            continue
+            
         jogo.lista_nomes.append(nome)
 
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -33,7 +43,7 @@ def executar_cadastro(jogo):
     
     while True:
         qtd = ler_escolha_valida("Quantos vilões deseja ter nesta partida? (1 ou 2): ", 2)
-        if qtd == 2 and len(jogo.lista_nomes) < 4:
+        if qtd == 2 and len(jogo.lista_nomes) < 6:
             print("❌ Participantes insuficientes para 2 vilões! Selecione 1 vilão.")
             continue
         if qtd == 0:

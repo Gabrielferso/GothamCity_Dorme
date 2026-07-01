@@ -8,9 +8,7 @@ class Coringa(Personagem):
     def realizar_acao_noturna(self, jogo_contexto):
         print(f"\n🃏 [GÁS DO RISO] Vez do Coringa agir...")
         
-        if jogo_contexto.qtd_viloes_configurada == 2:
-            print("⚠️ REGRA ATIVA: Você vai tirar a voz de alguém na próxima reunião!")
-        
+        # Listar todas as possíveis vítimas (jogadores ativos menos o próprio Coringa)
         vitimas = [p for p in jogo_contexto.jogadores_ativos if p != self.nome]
         
         print("  [0] Pular turno / Não aplicar o gás em ninguém")
@@ -25,9 +23,5 @@ class Coringa(Personagem):
 
         alvo = vitimas[escolha - 1]
         
-        if jogo_contexto.qtd_viloes_configurada == 2:
-            jogo_contexto.jogador_silenciado = alvo
-            print(f"\n🎯 [Sucesso] {alvo} não poderá falar na próxima reunião!")
-        else:
-            jogo_contexto.vitimas_da_noite.add(alvo)
-            print(f"\n🎯 [Alvo Registado com Sucesso!]")
+        jogo_contexto.vitimas_da_noite.add(alvo)
+        print(f"\n🎯 [Alvo Registado com Sucesso! Envenenado pelo Gás do Riso]")

@@ -28,23 +28,19 @@ class JogoCidadeDorme:
         print("="*50)
         print(" 🦇 REVELAÇÃO DE PAPÉIS 🤡 ")
         print("="*50)
-        opcao = input("Desejam descobrir as vossas funções agora? (s/n): ").strip().lower()
+        print("Pressione [ENTER] para revelar os papéis...")
         
-        if opcao == 's':
-            for nome in self.lista_nomes:
-                self.limpar_tela()
-                print(f"📢 Vez de [{nome}] aproximar-se da tela!")
-                input("Pressione [ENTER] quando estiver SOZINHO para ver o seu papel...")
-                
-                personagem = self.dicionario_jogadores[nome]
-                print(f"\n▶️ O teu papel secreto é: {personagem.papel} ◀️")
-                
-                input("\nPressione [ENTER] para APAGAR sua função...")
+        for nome in self.lista_nomes:
             self.limpar_tela()
-            print("✅ Todos sabem os seus papéis! O jogo vai começar...")
-        else:
-            print("\n⏩ Pulando revelação.")
-        input("\nPressione ENTER para iniciar a primeira noite...")
+            print(f"📢 Vez de [{nome}] aproximar-se da tela!")
+            input("Pressione [ENTER] quando estiver SOZINHO para ver o seu papel...")
+                
+            personagem = self.dicionario_jogadores[nome]
+            print(f"\n▶️ O teu papel secreto é: {personagem.papel} ◀️")
+                
+            input("\nPressione [ENTER] para APAGAR sua função...")
+        self.limpar_tela()
+        print("✅ Todos sabem os seus papéis! O jogo vai começar...")
 
     def verificar_vencedor(self):
         if self.qtd_viloes_configurada == 2:
